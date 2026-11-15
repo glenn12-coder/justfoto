@@ -1,0 +1,289 @@
+/* ── Template Section ── */
+.template-section {
+  width: 100%;
+  padding: 80px 24px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.template-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 56px;
+}
+
+/* ── Left Column: Images ── */
+/* Left Column: Images */
+.template-images-col {
+  flex: 1.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.template-images-wrapper {
+  display: flex;
+  gap: 0;
+  width: 120%;
+  max-width: 620px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: -50px;
+}
+
+.template-image-card {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  overflow: visible;
+  box-shadow: none;
+  transition: transform 0.4s ease;
+}
+
+/* Gambar kiri */
+.template-image-card:first-child {
+  transform: rotate(-8deg) scale(1.2);
+  z-index: 2;
+  margin-right: -150px;
+}
+
+/* Gambar kanan */
+.template-image-card:last-child {
+  transform: rotate(8deg) scale(1.2);
+  z-index: 1;
+}
+
+.template-image-card:first-child:hover {
+  transform: rotate(-4deg) scale(1.18) translateY(-5px);
+}
+
+.template-image-card:last-child:hover {
+  transform: rotate(4deg) scale(1.18) translateY(-5px);
+}
+
+.template-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── Right Column: Content ── */
+.template-content-col {
+  flex: 1.15;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header: Accent Bar & Title */
+.template-title-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.template-accent-bar {
+  display: inline-block;
+  width: 38px;
+  height: 4px;
+  background-color: #3fa535;
+  border-radius: 2px;
+  margin-top: 18px;
+  flex-shrink: 0;
+}
+
+.template-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1.8rem, 2.9vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.title-blue {
+  color: #dc2626;
+}
+
+.title-green {
+  color: #1e293b;
+}
+
+/* Paragraphs */
+.template-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.template-desc-primary {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.68;
+  color: #1e293b;
+  margin-bottom: 24px;
+}
+
+/* Statistics / Counters (seperti gambar) */
+.template-stats {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 36px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.template-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stat-number {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(2rem, 2.7vw, 2.5rem);
+  font-weight: 500;
+  color: #121356;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.template-desc-secondary {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.72;
+  color: #555e6d;
+  margin-bottom: 30px;
+}
+
+.template-desc-secondary sub {
+  font-size: 0.78em;
+  vertical-align: sub;
+}
+
+/* Action CTA Button */
+.template-action {
+  display: flex;
+  align-items: center;
+}
+
+.template-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fafbfb;
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #dc2626;
+  border: 1px solid #dc2626;
+  padding: 12px 28px;
+  border-radius: 0;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.template-btn:hover {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #fafbfb;
+}
+
+/* ── Responsive Media Queries ── */
+@media (max-width: 992px) {
+  .template-container {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .template-images-wrapper {
+    max-width: 440px;
+  }
+
+  .template-accent-bar {
+    margin-top: 14px;
+    width: 32px;
+  }
+}
+
+@media (max-width: 576px) {
+  .template-section {
+    padding: 50px 16px;
+  }
+
+  .template-images-wrapper {
+    gap: 12px;
+  }
+
+  .template-title {
+    font-size: 1.6rem;
+  }
+
+  .template-accent-bar {
+    width: 26px;
+    margin-top: 11px;
+  }
+
+  .template-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 16px;
+  }
+
+  .template-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.template-bg-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.template-container {
+  position: relative;
+  z-index: 1;
+}
+
+.red-square {
+  position: absolute;
+  display: block;
+  background: #dc2626;
+  opacity: 1;
+  border-radius: 4px;
+}
+
+/* Kotak dekoratif */
+.square-1 {
+  width: 400px;
+  height: 400px;
+  top: 15%;
+  left: 13%;
+  transform: rotate(45deg);
+}

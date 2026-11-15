@@ -1,0 +1,79 @@
+/* NAVBAR */
+.navbar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition:
+    background 0.4s ease,
+    box-shadow 0.4s ease;
+  padding: 20px;
+}
+
+/* SCROLL EFFECT */
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.7) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+/* CONTAINER */
+.navbar-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 75px;
+}
+
+/* DESKTOP NAVIGATION */
+.navbar-desktop {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-right: 100px;
+}
+
+/* NAVIGATION LINK */
+.navbar .navbar-desktop .nav-link {
+  position: relative;
+  display: inline-block;
+  padding: 8px 0;
+  font-family: "Outfit", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fafbfb !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #fafbfb;
+}
+
+/* UNDERLINE ANIMATION */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #dc2626;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}

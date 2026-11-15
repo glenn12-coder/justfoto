@@ -1,0 +1,149 @@
+/* ── Hero Section ── */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 560px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 30px;
+  left: 80%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  color: #fafbfb;
+  opacity: 1;
+  visibility: visible;
+}
+
+.hero-scroll span {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1.5px;
+  height: 45px;
+  background-color: #dc2626;
+  animation: scrollAnim 1.5s ease-in-out infinite;
+}
+
+@keyframes scrollAnim {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+
+  50.1% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* Background Slides */
+.hero-bg-slide {
+  position: absolute;
+  inset: 0;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  z-index: 0;
+}
+
+.hero-bg-slide.active {
+  opacity: 1;
+}
+
+/* Dark overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.58);
+  z-index: 2;
+}
+
+/* Content wrapper — centered */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 24px;
+}
+
+/* Heading */
+.hero-title {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: #fafbfb;
+  margin-bottom: 36px;
+}
+
+/* CTA Button */
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fafbfb;
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #dc2626;
+  border: 1px solid #dc2626;
+  padding: 12px 28px;
+  border-radius: 0;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.hero-btn:hover {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #fafbfb;
+}
+
+.hero-btn-arrow {
+  font-size: 14px;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.hero-btn:hover .hero-btn-arrow {
+  transform: translateX(4px);
+}

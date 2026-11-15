@@ -1,0 +1,476 @@
+/* ── Template List Section (temp.tsx) ── */
+.temp-section {
+  width: 100%;
+  padding: 72px 24px 90px;
+  background-color: #fafbfb;
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.temp-bg-shapes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Abstract Shapes ── */
+.temp-shape {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(220, 38, 38, 0.16);
+  border-radius: 50%;
+}
+
+.temp-shape-1 {
+  width: 140px;
+  height: 140px;
+  top: 8%;
+  left: -45px;
+}
+
+.temp-shape-2 {
+  width: 90px;
+  height: 90px;
+  bottom: 12%;
+  right: -25px;
+}
+
+.temp-shape-3 {
+  width: 55px;
+  height: 55px;
+  top: 35%;
+  right: 12%;
+  border-radius: 12px;
+  transform: rotate(25deg);
+}
+
+.temp-shape-4 {
+  width: 75px;
+  height: 75px;
+  bottom: 25%;
+  left: 8%;
+  border-radius: 18px;
+  transform: rotate(35deg);
+}
+
+.temp-shape-5 {
+  width: 110px;
+  height: 110px;
+  top: -45px;
+  right: 30%;
+  border-style: dashed;
+}
+
+.temp-shape-6 {
+  width: 35px;
+  height: 35px;
+  bottom: 8%;
+  right: 30%;
+  border-radius: 8px;
+  transform: rotate(45deg);
+}
+
+/* ── Stars ── */
+.temp-star {
+  position: absolute;
+  color: rgba(220, 38, 38, 0.3);
+  font-size: 28px;
+}
+
+.temp-star-1 {
+  top: 12%;
+  left: 20%;
+  font-size: 25px;
+}
+
+.temp-star-2 {
+  top: 22%;
+  right: 18%;
+  font-size: 32px;
+}
+
+.temp-star-3 {
+  bottom: 18%;
+  left: 25%;
+  font-size: 22px;
+}
+
+.temp-star-4 {
+  bottom: 30%;
+  right: 8%;
+  font-size: 36px;
+}
+
+.temp-star-5 {
+  top: 55%;
+  left: 5%;
+  font-size: 18px;
+}
+
+.temp-star-6 {
+  top: 8%;
+  right: 45%;
+  font-size: 20px;
+}
+
+.temp-star-7 {
+  bottom: 8%;
+  left: 48%;
+  font-size: 26px;
+}
+
+.temp-star-8 {
+  top: 65%;
+  right: 35%;
+  font-size: 18px;
+}
+
+/* ── Small Dots ── */
+.temp-dot {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background-color: rgba(220, 38, 38, 0.3);
+  border-radius: 50%;
+}
+
+.temp-dot-1 {
+  top: 18%;
+  left: 42%;
+}
+
+.temp-dot-2 {
+  top: 45%;
+  right: 25%;
+}
+
+.temp-dot-3 {
+  bottom: 20%;
+  right: 45%;
+}
+
+.temp-dot-4 {
+  bottom: 40%;
+  left: 18%;
+}
+
+.temp-dot-5 {
+  top: 75%;
+  right: 12%;
+}
+
+.temp-dot-6 {
+  top: 30%;
+  left: 8%;
+}
+
+.temp-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Header ── */
+.temp-header {
+  margin-bottom: 48px;
+}
+
+.temp-title-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.temp-accent-bar {
+  display: inline-block;
+  width: 38px;
+  height: 4px;
+  background-color: #dc2626;
+  border-radius: 2px;
+  margin-top: 18px;
+  flex-shrink: 0;
+}
+
+.temp-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1.8rem, 2.9vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.title-red {
+  color: #dc2626;
+}
+
+.title-dark {
+  color: #1e293b;
+}
+
+.temp-subtitle {
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #555e6d;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Category Pills ── */
+.temp-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.temp-cat-pill {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.temp-cat-pill:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+.temp-cat-pill--active {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+}
+
+/* ── Empty state ── */
+.temp-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 48px 0;
+}
+
+/* ── Grid ── */
+.temp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-bottom: 52px;
+}
+
+/* ── Individual Card ── */
+.temp-card {
+  background-color: #ffffff;
+  border: 1px solid #e9eef4;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Frame Preview (mini photostrip) ── */
+.temp-preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.temp-preview-slot {
+  width: 100%;
+  flex: 1;
+  border-radius: 6px;
+  border: 1.5px solid;
+  opacity: 0.85;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.temp-preview-accent {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  pointer-events: none;
+  border: 4px solid transparent;
+  box-sizing: border-box;
+}
+
+.temp-preview-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  line-height: 1.4;
+  pointer-events: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.temp-preview-dot {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ── Card Info ── */
+.temp-card-info {
+  padding: 14px 16px 4px;
+  flex: 1;
+}
+
+.temp-card-name {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 5px;
+  line-height: 1.3;
+}
+
+.temp-card-desc {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Card CTA button ── */
+.temp-card-btn {
+  display: block;
+  margin: 12px 16px 16px;
+  padding: 12px 14px;
+  background-color: #dc2626;
+  color: #fafbfb;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: 0.03em;
+
+  /* Tambahkan ini */
+  border: 1px solid transparent;
+  box-sizing: border-box;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.temp-card-btn:hover {
+  background-color: #fafbfb;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+}
+
+/* ── Bottom CTA (matches Template.css .template-btn) ── */
+.temp-cta {
+  display: flex;
+  justify-content: center;
+}
+
+.template-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fafbfb;
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #dc2626;
+  border: 1px solid #dc2626;
+  padding: 12px 28px;
+  border-radius: 0;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.template-btn:hover {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #fafbfb;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .temp-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .temp-section {
+    padding: 52px 18px 72px;
+  }
+
+  .temp-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .temp-title-wrapper {
+    gap: 12px;
+  }
+
+  .temp-accent-bar {
+    width: 30px;
+    margin-top: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .temp-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .temp-card-name {
+    font-size: 13px;
+  }
+
+  .temp-card-desc {
+    display: none;
+  }
+}
