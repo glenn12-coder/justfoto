@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  type FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./booth.css";
 
 /* ─────────────────────── TYPES & CONSTANTS ─────────────────────── */
@@ -11,6 +17,9 @@ const LAYOUTS: {
   total: number;
   cols: number;
 }[] = [{ key: "1x3", label: "1×3", total: 3, cols: 1 }];
+
+const N8N_WEBHOOK_URL =
+  "https://glenn55.app.n8n.cloud/webhook-test/photobooth-send";
 
 export interface FrameOption {
   id: string;
@@ -512,6 +521,12 @@ export default function Booth() {
     null,
   );
   const [editorError, setEditorError] = useState("");
+  const [recipientEmail, setRecipientEmail] = useState("");
+  const [sendingEmail, setSendingEmail] = useState(false);
+  const [emailStatus, setEmailStatus] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
   const backgroundInputRef = useRef<HTMLInputElement>(null);
   const overlayInputRef = useRef<HTMLInputElement>(null);
 
@@ -697,6 +712,7 @@ export default function Booth() {
   };
 
   const handleBackToCapture = () => {
+    setEmailStatus(null);
     setPhase("capture");
   };
 
@@ -717,6 +733,7 @@ export default function Booth() {
     setCustomOverlays([]);
     setSelectedOverlayId(null);
     setEditorError("");
+    setEmailStatus(null);
     handleResetLighting();
     setStickers([
       { id: "stk_1", emoji: "✨", x: 80, y: 15, size: 32 },
@@ -944,12 +961,10 @@ export default function Booth() {
     }
   };
 
-  /* ── Download High-Resolution Photostrip ── */
-  const downloadStrip = async () => {
-    setEditorError("");
-    try {
+  /* ── Render High-Resolution Photostrip to Canvas ── */
+  const renderStripCanvas = async (): Promise<HTMLCanvasElement | null> => {
     const stripEl = document.getElementById("strip-preview");
-    if (!stripEl) return;
+    if (!stripEl) return null;
     const stripW = stripEl.offsetWidth;
     const stripH = stripEl.offsetHeight;
     const scale = 2; // retina 2x
@@ -958,7 +973,7 @@ export default function Booth() {
     canvas.width = stripW * scale;
     canvas.height = stripH * scale;
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) return null;
 
     ctx.scale(scale, scale);
 
@@ -1135,8 +1150,7 @@ export default function Booth() {
         }
       } else {
         ctx.strokeStyle = borderColor;
-        ctx.lineWidth =
-          currentFrame?.frameStyle === "film-sprocket" ? 9 : 5;
+        ctx.lineWidth = currentFrame?.frameStyle === "film-sprocket" ? 9 : 5;
         ctx.strokeRect(
           ctx.lineWidth / 2,
           ctx.lineWidth / 2,
@@ -1192,15 +1206,92 @@ export default function Booth() {
       ctx.restore();
     });
 
-    // Trigger download
-    const link = document.createElement("a");
-    link.download = `photobooth-${activeFrameId}-${Date.now()}.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+    return canvas;
+  };
+
+  /* ── Download High-Resolution Photostrip ── */
+  const downloadStrip = async () => {
+    setEditorError("");
+    try {
+      const canvas = await renderStripCanvas();
+      if (!canvas) return;
+      const link = document.createElement("a");
+      link.download = `photobooth-${activeFrameId}-${Date.now()}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
     } catch (error) {
       setEditorError(
         error instanceof Error ? error.message : "Hasil foto gagal diunduh.",
       );
+    }
+  };
+
+  /* ── Send Photostrip to Email via n8n Webhook ── */
+  const sendStripToEmail = async (e: FormEvent) => {
+    e.preventDefault();
+    setEditorError("");
+    setEmailStatus(null);
+
+    const trimmedEmail = recipientEmail.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!trimmedEmail || !emailRegex.test(trimmedEmail)) {
+      setEmailStatus({
+        type: "error",
+        message: "Masukkan alamat email yang valid terlebih dahulu.",
+      });
+      return;
+    }
+
+    setSendingEmail(true);
+    try {
+      const canvas = await renderStripCanvas();
+      if (!canvas) {
+        throw new Error("Gagal merender strip foto.");
+      }
+
+      const blob = await new Promise<Blob | null>((resolve) =>
+        canvas.toBlob((result) => resolve(result), "image/png"),
+      );
+      if (!blob) {
+        throw new Error("Gagal mengonversi gambar ke format PNG.");
+      }
+
+      const fileName = `photobooth-${activeFrameId}-${Date.now()}.png`;
+      const formData = new FormData();
+      formData.append("email", trimmedEmail);
+      formData.append("filename", fileName);
+      formData.append("frame", currentFrame?.name ?? activeFrameId);
+      formData.append("caption", bottomText);
+      formData.append("sentAt", new Date().toISOString());
+      formData.append("file", blob, fileName);
+
+      const response = await fetch(N8N_WEBHOOK_URL, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => "");
+        throw new Error(
+          errorText ||
+            `Webhook n8n merespons dengan status ${response.status}.`,
+        );
+      }
+
+      setEmailStatus({
+        type: "success",
+        message: `Foto berhasil dikirim ke ${trimmedEmail}! Periksa kotak masuk atau folder spam Anda.`,
+      });
+    } catch (error) {
+      setEmailStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? `Gagal mengirim email: ${error.message}`
+            : "Gagal mengirim foto ke email. Pastikan webhook n8n aktif.",
+      });
+    } finally {
+      setSendingEmail(false);
     }
   };
 
@@ -1760,7 +1851,9 @@ export default function Booth() {
                 onClick={() => backgroundInputRef.current?.click()}
                 type="button"
               >
-                {backgroundImage ? "Ganti gambar latar" : "＋ Unggah gambar latar"}
+                {backgroundImage
+                  ? "Ganti gambar latar"
+                  : "＋ Unggah gambar latar"}
               </button>
               {backgroundImage && (
                 <button
@@ -1868,9 +1961,7 @@ export default function Booth() {
                       <label className="slider-item">
                         <span className="slider-label-row">
                           <span>Skala ukuran overlay</span>
-                          <span className="slider-value">
-                            {overlay.width}%
-                          </span>
+                          <span className="slider-value">{overlay.width}%</span>
                         </span>
                         <input
                           className="custom-slider"
@@ -1908,7 +1999,10 @@ export default function Booth() {
                                   item.id === overlay.id
                                     ? {
                                         ...item,
-                                        width: Math.max(1, Math.min(500, width)),
+                                        width: Math.max(
+                                          1,
+                                          Math.min(500, width),
+                                        ),
                                       }
                                     : item,
                                 ),
@@ -1954,6 +2048,51 @@ export default function Booth() {
               placeholder="Teks bawah strip foto..."
             />
           </div>
+
+          {/* ════ 7. KIRIM FOTO KE EMAIL (n8n) ════ */}
+          <form
+            className="setting-section email-send-section"
+            onSubmit={sendStripToEmail}
+            noValidate
+          >
+            <h4 className="setting-label">KIRIM FOTO KE EMAIL</h4>
+            <p
+              className="image-upload-hint"
+              style={{ marginTop: 0, marginBottom: 4 }}
+            >
+              Masukkan alamat email untuk menerima hasil strip foto langsung ke
+              kotak masuk Anda.
+            </p>
+            <div className="email-input-row">
+              <input
+                type="email"
+                className="email-input"
+                value={recipientEmail}
+                onChange={(e) => {
+                  setRecipientEmail(e.target.value);
+                  if (emailStatus) setEmailStatus(null);
+                }}
+                placeholder="nama@email.com"
+                disabled={sendingEmail}
+                aria-label="Alamat email penerima"
+              />
+              <button
+                type="submit"
+                className="btn-outline btn-send-email"
+                disabled={sendingEmail}
+              >
+                {sendingEmail ? "Mengirim..." : "Kirim ke Email"}
+              </button>
+            </div>
+            {emailStatus && (
+              <p
+                className={`email-status ${emailStatus.type === "success" ? "is-success" : "is-error"}`}
+                role="status"
+              >
+                {emailStatus.message}
+              </p>
+            )}
+          </form>
 
           {/* Actions */}
           {editorError && (
