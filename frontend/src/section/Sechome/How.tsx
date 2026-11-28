@@ -15,34 +15,34 @@ interface StepItem {
 const steps: StepItem[] = [
   {
     id: 1,
-    stepNumber: "STEP 1",
-    title: "Choose a layout",
+    stepNumber: "LANGKAH 1",
+    title: "Pilih Layout",
     description:
-      "Pick from strips, filters, and special collabs. There's a lot to choose from.",
+      "Pilih berbagai pilihan bingkai foto, filter, dan kolaborasi spesial sesuai gaya favoritmu.",
     icon: <LayoutGrid size={22} strokeWidth={2} />,
   },
   {
     id: 2,
-    stepNumber: "STEP 2",
-    title: "Strike a pose",
+    stepNumber: "LANGKAH 2",
+    title: "Tunjukkan Gayamu",
     description:
-      "Allow camera access and pose for each shot with a 3-second countdown.",
+      "Izinkan akses kamera dan berpose untuk setiap pengambilan foto dengan hitung mundur 3 detik.",
     icon: <Camera size={22} strokeWidth={2} />,
   },
   {
     id: 3,
-    stepNumber: "STEP 3",
-    title: "Customize",
+    stepNumber: "LANGKAH 3",
+    title: "Kustomisasi Foto",
     description:
-      "Adjust frame colors, add stickers, doodle, or overlay the date. Make it yours.",
+      "Atur warna bingkai, tambahkan stiker, gambar bebas, atau tanggal untuk membuat fotomu lebih personal.",
     icon: <SlidersHorizontal size={22} strokeWidth={2} />,
   },
   {
     id: 4,
-    stepNumber: "STEP 4",
-    title: "Download",
+    stepNumber: "LANGKAH 4",
+    title: "Unduh Foto",
     description:
-      "Save your high-resolution strip instantly. Nothing is ever uploaded or stored.",
+      "Simpan hasil foto berkualitas tinggi secara instan. Foto tidak pernah diunggah atau disimpan di server kami.",
     icon: <Download size={22} strokeWidth={2} />,
   },
 ];
